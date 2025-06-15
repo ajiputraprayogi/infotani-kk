@@ -50,7 +50,7 @@
             <!--end::Menu Body-->
             <!--begin::Menu Footer-->
             <li class="user-footer">
-                {{-- <a href="#" class="btn btn-default btn-flat">Profile</a> --}}
+                <a href="{{ url('/profile') }}" class="btn btn-default btn-flat">Profile</a>
             
                 <form method="POST" action="{{ route('logout') }}" class="float-end">
                     @csrf
