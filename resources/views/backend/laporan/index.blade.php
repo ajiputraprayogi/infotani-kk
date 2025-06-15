@@ -35,9 +35,10 @@
                 scales: {
                     y: {
                         beginAtZero: true,
+                        max: Math.ceil(Math.max(...dataValues)), // ⬅️ Batas atas otomatis
                         ticks: {
-                            stepSize: 1, // 👈 penting: biar muncul 0,1,2,3,4
-                            precision: 0 // 👈 agar tidak ada koma
+                            stepSize: 1,
+                            precision: 0
                         },
                         title: {
                             display: true,
