@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', 'Data Harga Jual')
+@section('title', 'Data Panen')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('select2-boostrap-5/select2.min.css') }}" />
@@ -7,6 +7,12 @@
     <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('backend/dist/sweetalert2/sweetalert2.min.css') }}" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        .modal-body {
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -20,10 +26,9 @@
                     <div class="card mb-4">
                         <!-- Card Header -->
                         <div class="card-header d-flex align-items-center">
-                            <h3 class="card-title mb-0">Data Harga Jual</h3>
+                            <h3 class="card-title mb-0">Data Panen</h3>
                             <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
-                            <button class="btn btn-primary btn-sm ms-auto" onclick="tambahHargaJual()">+ Tambah Harga
-                                Jual</button>
+                            <button class="btn btn-primary btn-sm ms-auto" onclick="tambahPanen()">+ Tambah Panen</button>
                         </div>
                         <!-- /.card-header -->
 
@@ -32,9 +37,8 @@
                                 <thead>
                                     <tr>
                                         <th width="15px">No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Nama Tanaman</th>
-                                        <th>Harga Jual</th>
+                                        <th>Nama</th>
+                                        <th>Panen Grup</th>
                                         <th class="text-center" width="150px">Aksi</th>
                                     </tr>
                                 </thead>
@@ -52,13 +56,13 @@
         </div>
         <!--end::Container-->
     </div>
-    <!-- Modal Tambah/Edit Harga Jual -->
-    <div class="modal fade" id="modalHargaJual" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <form onsubmit="event.preventDefault(); simpanHargaJual();">
+    <!-- Modal Tambah/Edit Panen -->
+    <div class="modal fade" id="modalPanen" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <form onsubmit="event.preventDefault(); simpanPanen();">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="modalHargaJualTitle">Tambah Harga Jual</h5>
+                        <h5 class="modal-title" id="modalPanenTitle">Tambah Panen</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
@@ -79,11 +83,24 @@
                         </div>
                         <div class="mb-3">
                             <label>Harga Jual (Kg)</label>
-                            <input type="number" class="form-control" name="harga_jual" required>
+                            <input type="number" class="form-control" name="harga_jual" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label>Jumlah Panen (Kg)</label>
+                            <input type="number" class="form-control" name="jumlah_panen" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Total</label>
+                            <input type="number" class="form-control" name="total" disabled>
+                        </div>
+                        <div class="mb-3">
+                            <label>Pembuat</label>
+                            <input type="text" class="form-control" name="pembuat" disabled>
+                            <input type="text" class="form-control" name="id_pembuat" hidden>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" id="btnSimpanHargaJual" class="btn btn-primary">Simpan</button>
+                        <button type="submit" id="btnSimpanPanen" class="btn btn-primary">Simpan</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     </div>
                 </div>
@@ -97,7 +114,6 @@
     <script src="{{ asset('DataTables/datatables.js') }}"></script>
     <script src="{{ asset('backend/dist/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
     <script>
         const Toast = Swal.mixin({
             toast: true,
@@ -113,7 +129,7 @@
                 order: [
                     [0, "desc"]
                 ],
-                ajax: '/list-data-harga-jual',
+                ajax: '/list-data-permissions',
                 columns: [{
                         data: 'id',
                         render: function(data, type, row, meta) {
@@ -121,27 +137,23 @@
                         }
                     },
                     {
-                        data: 'tanggal',
-                        name: 'tanggal'
+                        data: 'name',
+                        name: 'name'
                     },
                     {
-                        data: 'nama_tanaman_t',
-                        name: 'nama_tanaman_t',
-                    },
-                    {
-                        data: 'harga_jual',
-                        name: 'harga_jual'
+                        data: 'permissions_grup',
+                        name: 'permissions_grup'
                     },
                     {
                         render: function(data, type, row) {
                             return `
-                            <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        `;
+                                <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            `;
                         },
                         "className": 'text-center',
                         "orderable": false,
@@ -167,7 +179,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: `/harga-jual/${id}`,
+                        url: `/permissions/${id}`,
                         type: 'DELETE',
                         data: {
                             _token: '{{ csrf_token() }}'
@@ -190,28 +202,79 @@
             });
         }
 
+        const loggedInUser = @json(Auth::user()->name);
+        const loggedInUserId = @json(Auth::user()->id);
         let mode = 'tambah'; // Default mode
 
-        function tambahHargaJual() {
+        function tambahPanen() {
             mode = 'tambah';
-            $('#modalHargaJualTitle').text('Tambah Harga Jual');
-            $('#btnSimpanHargaJual').text('Simpan');
-            $('#modalHargaJual input[name="id"]').val('');
-            $('#modalHargaJual input[name="tanggal"]').val();
-            $('#modalHargaJual select[name="nama_tanaman"]').val('').trigger('change');
-            $('#modalHargaJual input[name="harga_jual"]').val('');
-            $('#modalHargaJual').modal('show');
+            $('#modalPanenTitle').text('Tambah Panen');
+            $('#btnSimpanPanen').text('Simpan');
+            $('#modalPanen input[name="id"]').val('');
+            $('#modalPanen select[name="nama_tanaman"]').val('').trigger('change');
+            $('#modalPanen input[name="jumlah_panen"]').val('');
+            $('#modalPanen input[name="harga_jual"]').val('0');
+            $('#modalPanen input[name="total"]').val('0');
+            $('#modalPanen input[name="pembuat"]').val(loggedInUser);
+            $('#modalPanen input[name="id_pembuat"]').val(loggedInUserId);
+            $('#modalPanen').modal('show');
+            
+        }
+
+        function fetchHarga() {
+            const tanggal = $('#modalPanen input[name="tanggal"]').val();
+            const nama_tanaman = $('#modalPanen select[name="nama_tanaman"]').val();
+
+            if (!tanggal && !nama_tanaman) {
+                // Kalau dua-duanya kosong, nggak usah fetch
+                $('#modalPanen input[name="harga_jual"]').val('0');
+                return;
+            }
+            $.ajax({
+                url: '/get-harga',
+                method: 'GET',
+                data: {
+                    tanggal: tanggal,
+                    nama_tanaman: nama_tanaman
+                },
+                success: function(res) {
+                    if (res.harga !== null) {
+                        $('#modalPanen input[name="harga_jual"]').val(res.harga);
+                    } else {
+                        $('#modalPanen input[name="harga_jual"]').val('0');
+                    }
+                    hitungTotal();
+                },
+                error: function(err) {
+                    console.error('Gagal mengambil harga:', err);
+                }
+            });
+        }
+
+        $('#modalPanen input[name="tanggal"]').on('change', fetchHarga);
+        $('#modalPanen select[name="nama_tanaman"]').on('change', fetchHarga);
+
+        $('#modalPanen input[name="jumlah_panen"]').on('input', function() {
+            hitungTotal();
+        });
+
+        function hitungTotal() {
+            const harga = parseFloat($('#modalPanen input[name="harga_jual"]').val()) || 0;
+            const jumlah = parseFloat($('#modalPanen input[name="jumlah_panen"]').val()) || 0;
+            const total = harga * jumlah;
+
+            $('#modalPanen input[name="total"]').val(total.toFixed(0)); // jika ingin 2 desimal
         }
 
         function editdata(id) {
-            $.get(`/harga-jual/${id}/edit`, function(response) {
+            $.get(`/permissions/${id}/edit`, function(response) {
                 mode = 'edit';
-                $('#modalHargaJualTitle').text('Edit Harga Jual');
-                $('#btnSimpanHargaJual').text('Simpan Perubahan');
-                $('#modalHargaJual input[name="id"]').val(response.id);
-                $('#modalHargaJual select[name="nama_tanaman"]').val(response.nama_tanaman).trigger('change');
-                $('#modalHargaJual input[name="harga_jual"]').val(response.harga_jual);
-                $('#modalHargaJual').modal('show');
+                $('#modalPanenTitle').text('Edit Panen');
+                $('#btnSimpanPanen').text('Simpan Perubahan');
+                $('#modalPanen input[name="id"]').val(response.id);
+                $('#modalPanen input[name="name"]').val(response.name);
+                $('#modalPanen input[name="permissions_grup"]').val(response.permissions_grup);
+                $('#modalPanen').modal('show');
             }).fail(function() {
                 Toast.fire({
                     icon: 'error',
@@ -220,21 +283,20 @@
             });
         }
 
-        function simpanHargaJual() {
-            let id = $('#modalHargaJual input[name="id"]').val();
+        function simpanPanen() {
+            let id = $('#modalPanen input[name="id"]').val();
             let formData = {
                 _token: '{{ csrf_token() }}',
-                tanggal: $('#modalHargaJual input[name="tanggal"]').val(),
-                nama_tanaman: $('#modalHargaJual select[name="nama_tanaman"]').val(),
-                harga_jual: $('#modalHargaJual input[name="harga_jual"]').val(),
+                name: $('#modalPanen input[name="name"]').val(),
+                permissions_grup: $('#modalPanen input[name="permissions_grup"]').val(),
             };
 
-            let url = '/harga-jual';
+            let url = '/permissions';
             let method = 'POST';
 
             if (mode === 'edit') {
                 formData._method = 'PUT';
-                url = `/harga-jual/${id}`;
+                url = `/permissions/${id}`;
             }
 
             $.ajax({
@@ -242,7 +304,7 @@
                 type: 'POST',
                 data: formData,
                 success: function() {
-                    $('#modalHargaJual').modal('hide');
+                    $('#modalPanen').modal('hide');
                     Toast.fire({
                         icon: 'success',
                         title: mode === 'edit' ? 'Data berhasil diperbarui!' :
@@ -263,7 +325,7 @@
         $(document).ready(function() {
             $('#nama_tanaman').select2({
                 theme: 'bootstrap-5',
-                dropdownParent: $('#modalHargaJual')
+                dropdownParent: $('#modalPanen')
             });
         });
     </script>
@@ -275,5 +337,5 @@
             altFormat: "d-m-Y",
         });
     </script>
-    
+
 @endsection

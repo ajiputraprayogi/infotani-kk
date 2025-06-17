@@ -17,7 +17,7 @@
     <!-- Style -->
     <link rel="stylesheet" href="{{ asset('backend/login-form-10/login-form-10/css/style.css') }}">
 
-    <title>Login #10</title>
+    <title>Login</title>
 </head>
 <style>
     .form-control {

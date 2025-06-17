@@ -3,6 +3,7 @@
 use App\Http\Controllers\backend\HargaJualController;
 use App\Http\Controllers\Backend\HomeController;
 use App\Http\Controllers\backend\JenisTanamanController;
+use App\Http\Controllers\backend\PanenController;
 use App\Http\Controllers\backend\PermissionsController;
 use App\Http\Controllers\backend\RolesController;
 use App\Http\Controllers\backend\TanamanController;
@@ -47,6 +48,10 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/harga-jual', HargaJualController::class);
     Route::get('/list-data-harga-jual', [HargaJualController::class, 'listdata']);
+
+    Route::resource('/panen', PanenController::class);
+    Route::get('/list-data-panen', [PanenController::class, 'listdata']);
+    Route::get('/get-harga', [PanenController::class, 'getHarga']);
 });
 
 require __DIR__.'/auth.php';
