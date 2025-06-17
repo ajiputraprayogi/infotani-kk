@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../index3.html" class="nav-link">
+                    <a href="{{ url('/laporan') }}" class="nav-link">
                         <i class="nav-icon bi bi-clipboard-data"></i>
                         <p>Laporan</p>
                     </a>
@@ -66,9 +66,15 @@
                         </li>
                         @endif                   
                         <li class="nav-item">
-                            <a href="../index2.html" class="nav-link">
+                            <a href="{{ url('/tanaman') }}" class="nav-link">
                                 <i class="bi bi-flower1 text-success nav-icon"></i>
                                 <p>Tanaman</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('/harga-jual') }}" class="nav-link">
+                                <i class="bi-cash-coin text-warning nav-icon"></i>
+                                <p>Harga Jual</p>
                             </a>
                         </li>
                     </ul>

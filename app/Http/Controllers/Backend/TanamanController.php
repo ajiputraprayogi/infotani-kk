@@ -5,6 +5,8 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Dflydev\DotAccessData\Data;
+use DataTables;
 
 class TanamanController extends Controller
 {
@@ -13,7 +15,18 @@ class TanamanController extends Controller
      */
     public function index()
     {
-        //
+        $jenis_tanaman = DB::table('jenis_tanaman')->get();
+        return view('backend.tanaman.index', compact('jenis_tanaman'));
+    }
+
+    public function listdata()
+    {
+        return Datatables::of(
+            DB::table('tanaman')
+            ->leftJoin('jenis_tanaman', 'tanaman.jenis_tanaman', '=', 'jenis_tanaman.id')
+            ->select(DB::raw('tanaman.*, jenis_tanaman.id as id_jt, jenis_tanaman.jenis_tanaman as jenis_tanaman_jt'))
+            ->get()
+        )->make(true);
     }
 
     public function showChart()
@@ -47,7 +60,10 @@ class TanamanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::table('tanaman')->insert([
+            'nama_tanaman'       => $request->nama_tanaman,
+            'jenis_tanaman' => $request->jenis_tanaman
+        ]);
     }
 
     /**
@@ -63,7 +79,8 @@ class TanamanController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $tanaman = DB::table('tanaman')->where('id', $id)->first();
+        return response()->json($tanaman);
     }
 
     /**
@@ -71,7 +88,13 @@ class TanamanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $tanaman = DB::table('tanaman')->where('id', $id);
+
+        $data = $request->only(['nama_tanaman', 'jenis_tanaman']);
+
+        $tanaman->update($data);
+
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -79,6 +102,7 @@ class TanamanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $tanaman = DB::table('tanaman')->where('id', $id)->delete();
+        return response()->json(['success' => true]);
     }
 }
