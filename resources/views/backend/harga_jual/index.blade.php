@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('select2-boostrap-5/select2-bootstrap-5-theme.min.css') }}" />
     <link href="{{ asset('DataTables/datatables.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('backend/dist/sweetalert2/sweetalert2.min.css') }}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="{{ asset('flatpickr/flatpickr.min.css') }}">
 @endsection
 
 @section('content')
@@ -96,7 +96,7 @@
     <script src="{{ asset('select2-boostrap-5/select2.full.min.js') }}"></script>
     <script src="{{ asset('DataTables/datatables.js') }}"></script>
     <script src="{{ asset('backend/dist/sweetalert2/sweetalert2.all.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="{{ asset('flatpickr/flatpickr.min.js') }}"></script>
 
     <script>
         const Toast = Swal.mixin({

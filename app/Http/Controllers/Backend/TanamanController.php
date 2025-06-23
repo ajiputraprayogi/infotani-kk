@@ -29,24 +29,6 @@ class TanamanController extends Controller
         )->make(true);
     }
 
-    public function showChart()
-    {
-        // $data = DB::table('permissions')->orderBy('created_at')->get();
-        $data = DB::table('permissions')
-            ->select('permissions_grup', DB::raw('count(*) as total'))
-            ->groupBy('permissions_grup')
-            ->orderBy('total', 'asc')
-            ->get();
-
-        $labels = $data->pluck('permissions_grup'); // y-axis
-        $totals = $data->pluck('total');            // x-axis
-
-        return view('backend.laporan.index', [
-            'labels' => $labels,
-            'totals' => $totals,
-        ]);
-    }
-
     /**
      * Show the form for creating a new resource.
      */
