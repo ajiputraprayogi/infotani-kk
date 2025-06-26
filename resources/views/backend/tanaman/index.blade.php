@@ -18,8 +18,11 @@
                         <!-- Card Header -->
                         <div class="card-header d-flex align-items-center">
                             <h3 class="card-title mb-0">Data Jenis Tanaman</h3>
-                            <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
-                            <button class="btn btn-primary btn-sm ms-auto" onclick="tambahJenisTanaman()">+ Tambah</button>
+                            @if (auth()->user()->can('tambah-jenis-tanaman'))
+                                <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
+                                <button class="btn btn-primary btn-sm ms-auto" onclick="tambahJenisTanaman()">+
+                                    Tambah</button>
+                            @endif
                         </div>
                         <!-- /.card-header -->
 
@@ -44,9 +47,11 @@
                         <!-- Card Header -->
                         <div class="card-header d-flex align-items-center">
                             <h3 class="card-title mb-0">Data Tanaman</h3>
-                            <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
-                            <button class="btn btn-primary btn-sm ms-auto" onclick="tambahTanaman()">+ Tambah
-                                Tanaman</button>
+                            @if (auth()->user()->can('tambah-tanaman'))
+                                <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
+                                <button class="btn btn-primary btn-sm ms-auto" onclick="tambahTanaman()">+ Tambah
+                                    Tanaman</button>
+                            @endif
                         </div>
                         <!-- /.card-header -->
 
@@ -132,22 +137,29 @@
 @section('scripts')
     <script src="{{ asset('DataTables/datatables.js') }}"></script>
     <script src="{{ asset('backend/dist/sweetalert2/sweetalert2.all.min.js') }}"></script>
-
+    <script>
+        const canEditJenisTanaman = {{ auth()->user()->can('edit-jenis-tanaman') ? 'true' : 'false' }};
+        const canDeleteJenisTanaman = {{ auth()->user()->can('hapus-jenis-tanaman') ? 'true' : 'false' }};
+        const canEditTanaman = {{ auth()->user()->can('edit-tanaman') ? 'true' : 'false' }};
+        const canDeleteTanaman = {{ auth()->user()->can('hapus-tanaman') ? 'true' : 'false' }};
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             $('#modalTanaman').on('show.bs.modal', function() {
-                $.getJSON('/get-jenis-tanaman', function(data) {
-                    console.log(data);
-                    const $select = $('#jenis_tanaman');
-                    $select.empty().append(
-                        '<option value="" disabled selected>-- Pilih Jenis Tanaman --</option>');
-                    data.forEach(item => {
-                        $select.append(
-                            `<option value="${item.id}">${item.jenis_tanaman}</option>`);
+                if (mode === 'tambah') {
+                    $.getJSON('/get-jenis-tanaman', function(data) {
+                        console.log(data);
+                        const $select = $('#jenis_tanaman');
+                        $select.empty().append(
+                            '<option value="" disabled selected>-- Pilih Jenis Tanaman --</option>');
+                        data.forEach(item => {
+                            $select.append(
+                                `<option value="${item.id}">${item.jenis_tanaman}</option>`);
+                        });
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        console.error("Gagal load data:", textStatus, errorThrown);
                     });
-                }).fail(function(jqXHR, textStatus, errorThrown) {
-                    console.error("Gagal load data:", textStatus, errorThrown);
-                });
+                }
             });
         });
     </script>
@@ -184,14 +196,25 @@
                     },
                     {
                         render: function(data, type, row) {
-                            return `
-                                <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            `;
+                            let buttons = '';
+
+                            if (canEditTanaman) {
+                                buttons += `
+            <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+        `;
+                            }
+
+                            if (canDeleteTanaman) {
+                                buttons += `
+            <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        `;
+                            }
+
+                            return buttons;
                         },
                         "className": 'text-center',
                         "orderable": false,
@@ -337,14 +360,25 @@
                     },
                     {
                         render: function(data, type, row) {
-                            return `
-                            <button type="button" onclick="editdatajenisTanaman(${row.id})" class="btn btn-sm btn-success">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="hapusdatajenisTanaman(${row.id})">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        `;
+                            let buttonsJenisTanaman = '';
+
+                            if (canEditJenisTanaman) {
+                                buttonsJenisTanaman += `
+            <button type="button" onclick="editdatajenisTanaman(${row.id})" class="btn btn-sm btn-success">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+        `;
+                            }
+
+                            if (canDeleteJenisTanaman) {
+                                buttonsJenisTanaman += `
+            <button class="btn btn-sm btn-danger" onclick="hapusdatajenisTanaman(${row.id})">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        `;
+                            }
+
+                            return buttonsJenisTanaman;
                         },
                         "className": 'text-center',
                         "orderable": false,

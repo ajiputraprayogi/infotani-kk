@@ -21,9 +21,11 @@
                         <!-- Card Header -->
                         <div class="card-header d-flex align-items-center">
                             <h3 class="card-title mb-0">Data Harga Jual</h3>
-                            <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
-                            <button class="btn btn-primary btn-sm ms-auto" onclick="tambahHargaJual()">+ Tambah Harga
-                                Jual</button>
+                            @if (auth()->user()->can('tambah-harga-jual'))
+                                <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
+                                <button class="btn btn-primary btn-sm ms-auto" onclick="tambahHargaJual()">+ Tambah Harga
+                                    Jual</button>
+                            @endif
                         </div>
                         <!-- /.card-header -->
 
@@ -97,6 +99,10 @@
     <script src="{{ asset('DataTables/datatables.js') }}"></script>
     <script src="{{ asset('backend/dist/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('flatpickr/flatpickr.min.js') }}"></script>
+    <script>
+        const canEdit = {{ auth()->user()->can('edit-harga-jual') ? 'true' : 'false' }};
+        const canDelete = {{ auth()->user()->can('hapus-harga-jual') ? 'true' : 'false' }};
+    </script>
 
     <script>
         const Toast = Swal.mixin({
@@ -134,14 +140,25 @@
                     },
                     {
                         render: function(data, type, row) {
-                            return `
-                            <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        `;
+                            let buttons = '';
+
+                            if (canEdit) {
+                                buttons += `
+            <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+        `;
+                            }
+
+                            if (canDelete) {
+                                buttons += `
+            <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        `;
+                            }
+
+                            return buttons;
                         },
                         "className": 'text-center',
                         "orderable": false,
@@ -275,5 +292,5 @@
             altFormat: "d-m-Y",
         });
     </script>
-    
+
 @endsection

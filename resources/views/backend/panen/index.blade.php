@@ -27,8 +27,11 @@
                         <!-- Card Header -->
                         <div class="card-header d-flex align-items-center">
                             <h3 class="card-title mb-0">Data Panen</h3>
-                            <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
-                            <button class="btn btn-primary btn-sm ms-auto" onclick="tambahPanen()">+ Tambah Panen</button>
+                            @if (auth()->user()->can('tambah-panen'))
+                                <!-- Tombol dengan margin-left auto agar dorong ke kanan -->
+                                <button class="btn btn-primary btn-sm ms-auto" onclick="tambahPanen()">+ Tambah
+                                    Panen</button>
+                            @endif
                         </div>
                         <!-- /.card-header -->
 
@@ -120,6 +123,12 @@
     <script src="{{ asset('backend/dist/sweetalert2/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('flatpickr/flatpickr.min.js') }}"></script>
     <script>
+        const currentUserId = {{ auth()->id() }};
+        const isAdmin = {{ auth()->user()->hasRole('Admin') ? 'true' : 'false' }};
+        const canEdit = {{ auth()->user()->can('edit-panen') ? 'true' : 'false' }};
+        const canDelete = {{ auth()->user()->can('hapus-panen') ? 'true' : 'false' }};
+    </script>
+    <script>
         let tanggalPicker;
         document.addEventListener("DOMContentLoaded", function() {
             flatpickr("#tanggal", {
@@ -184,14 +193,27 @@
                     },
                     {
                         render: function(data, type, row) {
-                            return `
-                                <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            `;
+                            let buttons = '';
+
+                            const isOwner = row.pembuat === currentUserId;
+
+                            if ((isOwner || isAdmin) && canEdit) {
+                                buttons += `
+            <button type="button" onclick="editdata(${row.id})" class="btn btn-sm btn-success">
+                <i class="bi bi-pencil-square"></i>
+            </button>
+        `;
+                            }
+
+                            if ((isOwner || isAdmin) && canDelete) {
+                                buttons += `
+            <button class="btn btn-sm btn-danger" onclick="hapusdata(${row.id})">
+                <i class="bi bi-trash-fill"></i>
+            </button>
+        `;
+                            }
+
+                            return buttons;
                         },
                         "className": 'text-center',
                         "orderable": false,
