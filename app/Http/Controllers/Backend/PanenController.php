@@ -21,14 +21,19 @@ class PanenController extends Controller
 
     public function listdata()
     {
-        return Datatables::of(
-            DB::table('panen')
-                ->leftjoin('tanaman', 'tanaman.id', '=', 'panen.nama_tanaman')
-                ->leftjoin('users', 'users.id', '=', 'panen.pembuat')
-                ->select(DB::raw('panen.*, panen.id as id_p, tanaman.nama_tanaman as nama_tanaman_t, users.name,(panen.harga_jual * panen.jumlah_panen) as total_harga'))
-                ->orderBy('panen.tanggal', 'desc')
-                ->get()
-        )->make(true);
+        $query = DB::table('panen')
+            ->leftJoin('tanaman', 'tanaman.id', '=', 'panen.nama_tanaman')
+            ->leftJoin('users', 'users.id', '=', 'panen.pembuat')
+            ->select(DB::raw('panen.*, panen.id as id_p, tanaman.nama_tanaman as nama_tanaman_t, users.name, (panen.harga_jual * panen.jumlah_panen) as total_harga'))
+            ->orderBy('panen.tanggal', 'desc');
+
+        // Tambahkan where hanya jika bukan admin
+        if (Auth::user()->role_id !== 1) {
+            $query->where('panen.pembuat', Auth::id());
+        }
+        
+        $query = $query->get();
+        return Datatables::of($query)->make(true);
     }
 
     /**
