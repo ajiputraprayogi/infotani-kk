@@ -5,17 +5,7 @@
         <!--begin::Container-->
         <div class="container-fluid">
             <!--begin::Row-->
-            <div class="row">
-                <div class="col-sm-6">
-                    <h3 class="mb-0">INFOTANI-KK</h3>
-                </div>
-                {{-- <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Collapsed Sidebar</li>
-                    </ol>
-                </div> --}}
-            </div>
+
             <!--end::Row-->
         </div>
         <!--end::Container-->
@@ -25,32 +15,96 @@
     <div class="app-content">
         <!--begin::Container-->
         <div class="container-fluid">
-            <!--begin::Row-->
             <div class="row">
-                <div class="col-12">
-                    <!-- Default box -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Selamat Datang!</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-lte-toggle="card-collapse"
-                                    title="Collapse">
-                                    <i data-lte-icon="expand" class="bi bi-plus-lg"></i>
-                                    <i data-lte-icon="collapse" class="bi bi-dash-lg"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool" data-lte-toggle="card-remove" title="Remove">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
-                            </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-danger shadow-sm">
+                            <i class="bi bi-box-seam"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Jumlah Panen</span>
+                            <span class="info-box-number">{{ $jumlah_panen }}</span>
                         </div>
-                        <div class="card-body">Ayo bikin aplikasi luar biasamu!</div>
-                        <!-- /.card-body -->
-                        <div class="card-footer">by: 2A</div>
-                        <!-- /.card-footer-->
                     </div>
-                    <!-- /.card -->
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-success shadow-sm">
+                            <i class="bi bi-cash-stack"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Hasil Panen</span>
+                            <span class="info-box-number">Rp {{ number_format($hasil_panen ?? 0, 0, ',', '.') }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-primary shadow-sm">
+                            <i class="bi bi-flower3"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tanaman</span>
+                            <span class="info-box-number">{{ $tanaman }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon text-bg-warning shadow-sm">
+                            <i class="bi bi-person-lines-fill"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Petani</span>
+                            <span class="info-box-number">{{ $user }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            {{-- List Harga Jual Hari Ini --}}
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-success text-white">
+                            <h3 class="card-title">Harga Jual Tanaman Hari Ini</h3>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-bordered mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Nama Tanaman</th>
+                                            <th>Jenis Tanaman</th>
+                                            <th>Harga Jual (/kg)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($harga_jual as $item)
+                                            <tr>
+                                                <td>{{ $item->nama_tanaman_t }}</td>
+                                                <td>{{ $item->jenis_tanaman_jt }}</td>
+                                                <td>Rp {{ number_format($item->harga_jual, 0, ',', '.') }}</td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3" class="text-center">Tidak ada data hari ini.</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer text-end small text-muted">
+                            Tanggal: {{ \Carbon\Carbon::today()->format('d M Y') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!--end::Row-->
         </div>
         <!--end::Container-->
