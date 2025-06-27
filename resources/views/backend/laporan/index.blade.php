@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', 'Data Permissions')
+@section('title', 'Laporan')
 
 @section('css')
     <link rel="stylesheet" href="{{ asset('flatpickr/flatpickr.min.css') }}">
