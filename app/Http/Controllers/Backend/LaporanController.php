@@ -5,6 +5,7 @@ namespace App\Http\Controllers\backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
+use Auth;
 use Carbon\Carbon;
 
 class LaporanController extends Controller
@@ -107,10 +108,14 @@ class LaporanController extends Controller
             )
             ->whereDate('panen.tanggal', '>=', $start)
             ->whereDate('panen.tanggal', '<=', $end)
+            ->when(Auth::user()->role_id !== 1, function ($query) {
+                return $query->where('panen.pembuat', Auth::user()->id);
+            })
             ->groupBy('panen.tanggal', 'tanaman.nama_tanaman')
             ->orderBy('panen.tanggal', 'asc')
             ->get()
             ->groupBy('nama_tanaman_t');
+
 
         // Ambil label tanggal unik dari semua data
         $labels = $data->flatten()->pluck('tanggal')->unique()->sort()->values();
