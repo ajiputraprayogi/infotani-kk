@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2025 at 04:46 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 02 Jul 2025 pada 14.15
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `failed_jobs`
+-- Struktur dari tabel `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -40,7 +40,7 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `harga_jual`
+-- Struktur dari tabel `harga_jual`
 --
 
 CREATE TABLE `harga_jual` (
@@ -53,7 +53,7 @@ CREATE TABLE `harga_jual` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `harga_jual`
+-- Dumping data untuk tabel `harga_jual`
 --
 
 INSERT INTO `harga_jual` (`id`, `tanggal`, `nama_tanaman`, `harga_jual`, `created_at`, `updated_at`) VALUES
@@ -80,12 +80,23 @@ INSERT INTO `harga_jual` (`id`, `tanggal`, `nama_tanaman`, `harga_jual`, `create
 (23, '2025-06-25', 4, 11000, '2025-06-26 01:23:32', '2025-06-26 01:23:32'),
 (24, '2025-06-27', 3, 24000, '2025-06-26 23:21:08', '2025-06-26 23:21:08'),
 (25, '2025-06-27', 4, 28000, '2025-06-26 23:33:37', '2025-06-26 23:33:37'),
-(26, '2025-06-27', 5, 9000, '2025-06-26 23:33:46', '2025-06-26 23:33:46');
+(26, '2025-06-27', 5, 9000, '2025-06-26 23:33:46', '2025-06-26 23:33:46'),
+(27, '2025-06-30', 3, 15000, '2025-06-29 19:56:02', '2025-06-29 19:56:02'),
+(28, '2025-06-30', 4, 12000, '2025-06-29 19:56:12', '2025-06-29 19:56:12'),
+(29, '2025-06-30', 5, 17000, '2025-06-29 19:56:34', '2025-06-29 19:56:34'),
+(30, '2025-06-24', 3, 13000, '2025-06-29 20:45:59', '2025-06-29 20:45:59'),
+(31, '2025-06-24', 4, 13500, '2025-06-29 20:46:24', '2025-06-29 20:46:24'),
+(32, '2025-06-28', 3, 12000, '2025-06-29 20:46:55', '2025-06-29 20:46:55'),
+(33, '2025-06-28', 4, 15000, '2025-06-29 20:48:16', '2025-06-29 20:48:16'),
+(34, '2025-06-28', 5, 16000, '2025-06-29 20:48:28', '2025-06-29 20:48:28'),
+(35, '2025-06-29', 3, 12000, '2025-06-29 20:50:35', '2025-06-29 20:50:35'),
+(36, '2025-06-29', 4, 11000, '2025-06-29 20:50:45', '2025-06-29 20:50:45'),
+(37, '2025-06-29', 5, 14000, '2025-06-29 20:50:52', '2025-06-29 20:50:52');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis_tanaman`
+-- Struktur dari tabel `jenis_tanaman`
 --
 
 CREATE TABLE `jenis_tanaman` (
@@ -94,19 +105,20 @@ CREATE TABLE `jenis_tanaman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `jenis_tanaman`
+-- Dumping data untuk tabel `jenis_tanaman`
 --
 
 INSERT INTO `jenis_tanaman` (`id`, `jenis_tanaman`) VALUES
 (1, 'Buah'),
 (2, 'Umbi-Umbian'),
 (4, 'Biji-Bijian'),
-(8, 'Sayur');
+(8, 'Sayur'),
+(10, 'test');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `migrations`
+-- Struktur dari tabel `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -116,7 +128,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `migrations`
+-- Dumping data untuk tabel `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -129,7 +141,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_permissions`
+-- Struktur dari tabel `model_has_permissions`
 --
 
 CREATE TABLE `model_has_permissions` (
@@ -141,7 +153,7 @@ CREATE TABLE `model_has_permissions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `model_has_roles`
+-- Struktur dari tabel `model_has_roles`
 --
 
 CREATE TABLE `model_has_roles` (
@@ -151,7 +163,7 @@ CREATE TABLE `model_has_roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `model_has_roles`
+-- Dumping data untuk tabel `model_has_roles`
 --
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
@@ -159,12 +171,15 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 20),
 (2, 'App\\Models\\User', 21),
-(2, 'App\\Models\\User', 22);
+(2, 'App\\Models\\User', 22),
+(2, 'App\\Models\\User', 23),
+(2, 'App\\Models\\User', 24),
+(2, 'App\\Models\\User', 25);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `panen`
+-- Struktur dari tabel `panen`
 --
 
 CREATE TABLE `panen` (
@@ -180,7 +195,7 @@ CREATE TABLE `panen` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `panen`
+-- Dumping data untuk tabel `panen`
 --
 
 INSERT INTO `panen` (`id`, `nama_tanaman`, `tanggal`, `jumlah_panen`, `harga_jual`, `pembuat`, `id_harga_jual`, `created_at`, `updated_at`) VALUES
@@ -205,12 +220,35 @@ INSERT INTO `panen` (`id`, `nama_tanaman`, `tanggal`, `jumlah_panen`, `harga_jua
 (23, 3, '2025-06-26', 19, 15000, 2, 20, '2025-06-26 01:25:22', '2025-06-26 01:25:22'),
 (24, 3, '2025-06-25', 13, 14000, 2, 22, '2025-06-26 01:26:07', '2025-06-26 01:26:07'),
 (26, 3, '2025-06-27', 20, 24000, 21, 24, '2025-06-26 23:22:21', '2025-06-26 23:22:21'),
-(27, 3, '2025-06-27', 15, 24000, 22, 24, '2025-06-26 23:22:31', '2025-06-26 23:22:31');
+(27, 3, '2025-06-27', 15, 24000, 22, 24, '2025-06-26 23:22:31', '2025-06-26 23:22:31'),
+(31, 3, '2025-06-23', 45, 14000, 23, 5, '2025-06-29 20:54:20', '2025-06-29 20:54:20'),
+(32, 3, '2025-06-24', 17, 15000, 23, 27, '2025-06-29 20:56:11', '2025-06-29 21:00:30'),
+(33, 3, '2025-06-25', 20, 14000, 23, 22, '2025-06-29 20:57:03', '2025-06-29 20:57:03'),
+(34, 3, '2025-06-26', 25, 15000, 23, 20, '2025-06-29 20:57:35', '2025-06-29 20:57:35'),
+(35, 3, '2025-06-27', 33, 24000, 23, 24, '2025-06-29 20:58:21', '2025-06-29 20:58:21'),
+(36, 3, '2025-06-28', 55, 12000, 23, 32, '2025-06-29 20:58:59', '2025-06-29 20:58:59'),
+(37, 3, '2025-06-29', 47, 12000, 23, 35, '2025-06-29 20:59:46', '2025-06-29 20:59:46'),
+(38, 3, '2025-06-30', 62, 13000, 23, 30, '2025-06-29 21:00:05', '2025-06-29 21:00:50'),
+(39, 4, '2025-06-24', 8, 13500, 24, 31, '2025-06-29 21:03:52', '2025-06-29 21:03:52'),
+(40, 4, '2025-06-25', 10, 11000, 24, 23, '2025-06-29 21:04:57', '2025-06-29 21:04:57'),
+(42, 4, '2025-06-26', 4, 16000, 24, 21, '2025-06-29 21:05:45', '2025-06-29 21:05:45'),
+(43, 4, '2025-06-27', 7, 28000, 24, 25, '2025-06-29 21:06:02', '2025-06-29 21:06:02'),
+(44, 4, '2025-06-28', 3, 15000, 24, 33, '2025-06-29 21:06:21', '2025-06-29 21:06:21'),
+(45, 4, '2025-06-29', 5, 11000, 24, 36, '2025-06-29 21:06:48', '2025-06-29 21:06:48'),
+(46, 4, '2025-06-30', 6, 12000, 24, 28, '2025-06-29 21:07:05', '2025-06-29 21:07:05'),
+(47, 5, '2025-06-24', 3, 8500, 25, 19, '2025-06-29 21:09:29', '2025-06-29 21:09:29'),
+(48, 5, '2025-06-25', 45, 9000, 25, 18, '2025-06-29 21:09:45', '2025-06-29 21:09:45'),
+(49, 5, '2025-06-26', 23, 8000, 25, 17, '2025-06-29 21:10:05', '2025-06-29 21:10:05'),
+(50, 5, '2025-06-27', 90, 9000, 25, 26, '2025-06-29 21:10:41', '2025-06-29 21:10:41'),
+(51, 5, '2025-06-28', 4, 16000, 25, 34, '2025-06-29 21:11:41', '2025-06-29 21:11:41'),
+(52, 5, '2025-06-29', 34, 14000, 25, 37, '2025-06-29 21:11:58', '2025-06-29 21:11:58'),
+(53, 5, '2025-06-30', 32, 17000, 25, 29, '2025-06-29 21:12:16', '2025-06-29 21:12:16'),
+(54, 4, '2025-06-30', 12, 12000, 25, 28, '2025-06-29 22:34:57', '2025-06-29 22:34:57');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `password_reset_tokens`
+-- Struktur dari tabel `password_reset_tokens`
 --
 
 CREATE TABLE `password_reset_tokens` (
@@ -222,7 +260,7 @@ CREATE TABLE `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `permissions`
+-- Struktur dari tabel `permissions`
 --
 
 CREATE TABLE `permissions` (
@@ -235,7 +273,7 @@ CREATE TABLE `permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `permissions`
+-- Dumping data untuk tabel `permissions`
 --
 
 INSERT INTO `permissions` (`id`, `name`, `permissions_grup`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -271,7 +309,7 @@ INSERT INTO `permissions` (`id`, `name`, `permissions_grup`, `guard_name`, `crea
 -- --------------------------------------------------------
 
 --
--- Table structure for table `personal_access_tokens`
+-- Struktur dari tabel `personal_access_tokens`
 --
 
 CREATE TABLE `personal_access_tokens` (
@@ -290,7 +328,7 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `roles`
+-- Struktur dari tabel `roles`
 --
 
 CREATE TABLE `roles` (
@@ -302,7 +340,7 @@ CREATE TABLE `roles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `roles`
+-- Dumping data untuk tabel `roles`
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
@@ -312,7 +350,7 @@ INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role_has_permissions`
+-- Struktur dari tabel `role_has_permissions`
 --
 
 CREATE TABLE `role_has_permissions` (
@@ -321,7 +359,7 @@ CREATE TABLE `role_has_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `role_has_permissions`
+-- Dumping data untuk tabel `role_has_permissions`
 --
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
@@ -338,6 +376,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (11, 1),
 (12, 1),
 (21, 1),
+(21, 2),
 (22, 1),
 (22, 2),
 (23, 1),
@@ -363,7 +402,7 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tanaman`
+-- Struktur dari tabel `tanaman`
 --
 
 CREATE TABLE `tanaman` (
@@ -373,7 +412,7 @@ CREATE TABLE `tanaman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tanaman`
+-- Dumping data untuk tabel `tanaman`
 --
 
 INSERT INTO `tanaman` (`id`, `nama_tanaman`, `jenis_tanaman`) VALUES
@@ -384,7 +423,7 @@ INSERT INTO `tanaman` (`id`, `nama_tanaman`, `jenis_tanaman`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -400,60 +439,63 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role_id`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@gmail.com', NULL, '$2y$10$xjqUk.eFEOlc1BZJRwz6ee8Oc7LC6k9RoeV7BfNGnVHSko3.euWv2', 1, NULL, '2025-05-22 10:00:42', '2025-06-14 23:55:47'),
 (2, 'petani', 'petani@gmail.com', NULL, '$2y$10$jNFQ0/KJJ9JPrv5TwpAeZu9pSJt5MvAP0LzWX1ciY7gAMqwWFXmnq', 2, NULL, '2025-06-06 22:51:14', '2025-06-07 03:33:11'),
 (21, 'petani1', 'a@gmail.com', NULL, '$2y$10$f.2I.ITf.vRlIUVdx8yXu.HRdHt9dHIc1g11ydtik.w6Xd1bQkssG', 2, NULL, '2025-06-15 01:52:05', '2025-06-15 01:52:05'),
-(22, 'petani2', 'petani2@gmail.com', NULL, '$2y$10$IUx8nxg1KDqqGbUr65OZQurIhwgPK.J0Db9Zt0jpCVRtDZswQ6RgW', 2, NULL, '2025-06-26 01:18:13', '2025-06-26 01:18:13');
+(22, 'petani2', 'petani2@gmail.com', NULL, '$2y$10$IUx8nxg1KDqqGbUr65OZQurIhwgPK.J0Db9Zt0jpCVRtDZswQ6RgW', 2, NULL, '2025-06-26 01:18:13', '2025-06-26 01:18:13'),
+(23, 'yasa', 'yasa@gmail.com', NULL, '$2y$10$/V2ukEuqriDQjJFvJrIDBeiJCj1j/PGrkyw5IgXliTRBEsevWRWaO', 2, NULL, '2025-06-29 19:55:19', '2025-06-29 19:55:19'),
+(24, 'washif', 'washif@gmail.com', NULL, '$2y$10$Y0NTug8cfg7sfh6HLrl1xOFx7b6UFXzWuEeuFDyF82dMU0AWoMWUm', 2, NULL, '2025-06-29 21:02:06', '2025-06-29 21:02:06'),
+(25, 'sigit', 'sigit@gmail.com', NULL, '$2y$10$qfgel9tSegljdtyaM25sru0AOWK0MoAAi6u6xJiVB1X6aV5vq059u', 2, NULL, '2025-06-29 21:07:42', '2025-06-29 21:07:42');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `failed_jobs`
+-- Indeks untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `harga_jual`
+-- Indeks untuk tabel `harga_jual`
 --
 ALTER TABLE `harga_jual`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jenis_tanaman`
+-- Indeks untuk tabel `jenis_tanaman`
 --
 ALTER TABLE `jenis_tanaman`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `migrations`
+-- Indeks untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `model_has_permissions`
+-- Indeks untuk tabel `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
   ADD KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `model_has_roles`
+-- Indeks untuk tabel `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD PRIMARY KEY (`role_id`,`model_id`,`model_type`),
   ADD KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`);
 
 --
--- Indexes for table `panen`
+-- Indeks untuk tabel `panen`
 --
 ALTER TABLE `panen`
   ADD PRIMARY KEY (`id`),
@@ -462,20 +504,20 @@ ALTER TABLE `panen`
   ADD KEY `fk_nama_tanaman` (`nama_tanaman`);
 
 --
--- Indexes for table `password_reset_tokens`
+-- Indeks untuk tabel `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
   ADD PRIMARY KEY (`email`);
 
 --
--- Indexes for table `permissions`
+-- Indeks untuk tabel `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Indexes for table `personal_access_tokens`
+-- Indeks untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   ADD PRIMARY KEY (`id`),
@@ -483,28 +525,28 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
--- Indexes for table `roles`
+-- Indeks untuk tabel `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`);
 
 --
--- Indexes for table `role_has_permissions`
+-- Indeks untuk tabel `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD PRIMARY KEY (`permission_id`,`role_id`),
   ADD KEY `role_has_permissions_role_id_foreign` (`role_id`);
 
 --
--- Indexes for table `tanaman`
+-- Indeks untuk tabel `tanaman`
 --
 ALTER TABLE `tanaman`
   ADD PRIMARY KEY (`id`),
   ADD KEY `jenis_tanaman` (`jenis_tanaman`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -512,87 +554,87 @@ ALTER TABLE `users`
   ADD KEY `role_id` (`role_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `failed_jobs`
+-- AUTO_INCREMENT untuk tabel `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `harga_jual`
+-- AUTO_INCREMENT untuk tabel `harga_jual`
 --
 ALTER TABLE `harga_jual`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
--- AUTO_INCREMENT for table `jenis_tanaman`
+-- AUTO_INCREMENT untuk tabel `jenis_tanaman`
 --
 ALTER TABLE `jenis_tanaman`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `migrations`
+-- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `panen`
+-- AUTO_INCREMENT untuk tabel `panen`
 --
 ALTER TABLE `panen`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
--- AUTO_INCREMENT for table `permissions`
+-- AUTO_INCREMENT untuk tabel `permissions`
 --
 ALTER TABLE `permissions`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
--- AUTO_INCREMENT for table `personal_access_tokens`
+-- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `roles`
+-- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tanaman`
+-- AUTO_INCREMENT untuk tabel `tanaman`
 --
 ALTER TABLE `tanaman`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `model_has_permissions`
+-- Ketidakleluasaan untuk tabel `model_has_permissions`
 --
 ALTER TABLE `model_has_permissions`
   ADD CONSTRAINT `model_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `model_has_roles`
+-- Ketidakleluasaan untuk tabel `model_has_roles`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `panen`
+-- Ketidakleluasaan untuk tabel `panen`
 --
 ALTER TABLE `panen`
   ADD CONSTRAINT `fk_id_harga_jual` FOREIGN KEY (`id_harga_jual`) REFERENCES `harga_jual` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -600,20 +642,20 @@ ALTER TABLE `panen`
   ADD CONSTRAINT `panen_ibfk_2` FOREIGN KEY (`pembuat`) REFERENCES `users` (`id`);
 
 --
--- Constraints for table `role_has_permissions`
+-- Ketidakleluasaan untuk tabel `role_has_permissions`
 --
 ALTER TABLE `role_has_permissions`
   ADD CONSTRAINT `role_has_permissions_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `role_has_permissions_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `tanaman`
+-- Ketidakleluasaan untuk tabel `tanaman`
 --
 ALTER TABLE `tanaman`
   ADD CONSTRAINT `tanaman_ibfk_1` FOREIGN KEY (`jenis_tanaman`) REFERENCES `jenis_tanaman` (`id`);
 
 --
--- Constraints for table `users`
+-- Ketidakleluasaan untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
